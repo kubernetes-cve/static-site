@@ -1,0 +1,13 @@
+# Values for the default context
+
+context: default
+appName: static-site
+
+
+image: rsiriganagari/static-site
+tag: latest
+
+appDefaultPort: "8080"
+servicePort: "80"
+
+dockerHubCredsSecretName: regcred

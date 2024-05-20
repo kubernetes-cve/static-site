@@ -1,0 +1,42 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}-deployment
+  namespace: {{ .Values.context }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.appName }}
+        image: {{ .Values.image }}:{{ .Values.tag }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: {{ .Values.appDefaultPort }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.appDefaultPort }}
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.appDefaultPort }}
+          initialDelaySeconds: 3
+          periodSeconds: 3
+      imagePullSecrets:
+      - name: {{ .Values.dockerHubCredsSecretName }}
+
+  

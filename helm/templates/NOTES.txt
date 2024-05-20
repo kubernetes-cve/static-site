@@ -1,0 +1,18 @@
+# Application Access Instructions
+
+Static site has been successfully deployed to the Kubernetes cluster.
+
+To access the application, follow these steps:
+
+1. Run the following command to set up port-forwarding to the {{ .Values.appName }}-service:
+
+Replace `<local-port>` with a port number of your choice on your local machine (e.g., 8080), and replace `<service-port>` with the port number exposed by the {{ .Values.serviceName }} service.
+
+For example, to forward local port 8080 to the {{ .Values.serviceName }} service port, use:
+
+kubectl port-forward svc/{{ .Values.appName }}-service 8080:{{ .Values.servicePort }}
+
+2. Once port-forwarding is set up, you can access your application by opening a web browser and navigating to:
+
+For example, if the local port is 8080 navigate to:
+http://localhost:8080
